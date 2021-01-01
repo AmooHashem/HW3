@@ -25,3 +25,4 @@
   "image": "heroku/nodejs",
   "addons": ["mongolab"]
 }
+

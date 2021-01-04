@@ -6,6 +6,7 @@ const parseRequest = (data, address) => {
     body: JSON.stringify(data),
     method: 'POST',
     headers: {
+      'X-Parse-Application-Id': 'myAppId',
       'Content-Type': 'application/json'
     }
   }

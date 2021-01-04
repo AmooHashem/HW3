@@ -2,7 +2,8 @@
 
 var express = require('express');
 
-var user = express.Router();
+var user = express.Router(); // todo: change get --> post 
+
 user.get('/signup', function _callee(req, res) {
   var body, user;
   return regeneratorRuntime.async(function _callee$(_context) {
@@ -10,7 +11,7 @@ user.get('/signup', function _callee(req, res) {
       switch (_context.prev = _context.next) {
         case 0:
           body = req.body || {
-            email: 'amoo.hashem.mehraban@gmail.com',
+            email: 'amoo1.hashem.mehraban@gmail.com',
             password: "1234"
           };
           user = new Parse.User();
@@ -37,7 +38,8 @@ user.get('/signup', function _callee(req, res) {
       }
     }
   }, null, null, [[5, 11]]);
-});
+}); // todo: change get --> post 
+
 user.get('/signin', function _callee2(req, res) {
   var body, _user;
 
@@ -46,7 +48,7 @@ user.get('/signin', function _callee2(req, res) {
       switch (_context2.prev = _context2.next) {
         case 0:
           body = req.body || {
-            email: 'amoo.hashem.mehraban@gmail.com',
+            email: 'amoo2.hashem.mehraban@gmail.com',
             password: "1234"
           };
           _context2.prev = 1;
@@ -62,7 +64,7 @@ user.get('/signin', function _callee2(req, res) {
         case 8:
           _context2.prev = 8;
           _context2.t0 = _context2["catch"](1);
-          res.status(_context2.t0.code).send(_context2.t0.message);
+          res.send(_context2.t0.message);
 
         case 11:
         case "end":
@@ -71,8 +73,31 @@ user.get('/signin', function _callee2(req, res) {
     }
   }, null, null, [[1, 8]]);
 });
-user.get('/post', function (req, res) {
-  res.send('List of user users.');
+user.get('/signout', function (req, res) {
+  var body = req.body || {
+    token: 'r:21d6c57187e630933941b4dd19777631'
+  };
+  Parse.User.enableUnsafeCurrentUser();
+  Parse.User.become(body.token).then(function _callee3(user) {
+    return regeneratorRuntime.async(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            Parse.User.logOut().then(function () {
+              res.send("You Signed out successfully");
+            }, function (error) {
+              res.status(error.code).send(error.message);
+            });
+
+          case 1:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    });
+  }, function (error) {
+    res.status(error.code).send(error.message);
+  });
 });
 user.get('/', function (req, res) {
   res.send('List of user root.');

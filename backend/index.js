@@ -3,15 +3,12 @@
 
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
+var cors = require('cors');
 var path = require('path');
+var parseRequest = require('./src/Request.js').parseRequest;
 
-// MONGODB_VERSION=3.4.1 mongodb-runner
-// var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
-var databaseUri = 'mongodb+srv://AmooHashem:1273067185Ali@cluster0.qr5df.mongodb.net/HW3?retryWrites=true&w=majority'
-
-if (!databaseUri) {
-  console.log('DATABASE_URI not specified, falling back to localhost.');
-}
+var app = express();
+const databaseUri = 'mongodb+srv://AmooHashem:1273067185Ali@cluster0.qr5df.mongodb.net/HW3?retryWrites=true&w=majority'
 
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
@@ -23,34 +20,32 @@ var api = new ParseServer({
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   }
 });
-// Client-keys like the javascript key or the .NET key are not necessary with parse-server
-// If you wish you require them, you can set them as options in the initialization above:
-// javascriptKey, restAPIKey, dotNetKey, clientKey
 
-var app = express();
-
-// Serve static assets from the /public folder
+app.use(cors());
+app.use('/parse', api);
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
-// Serve the Parse API on the /parse URL prefix
-var mountPath = process.env.PARSE_MOUNT || '/parse';
-app.use(mountPath, api);
 
 // Parse Server plays nicely with the rest of your web routes
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
 });
 
+app.get('/hashem', (request, result) => {
+  parseRequest({ name: "Hashem" });
+  result.status(200).send("Eyval!");
+})
+
 // There will be a test page available on the /test path of your server url
 // Remove this before launching your app
-app.get('/test', function(req, res) {
+app.get('/test', function (req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
 
 var port = process.env.PORT || 1337;
 var httpServer = require('http').createServer(app);
-httpServer.listen(port, function() {
-    console.log('parse-server-example running on port ' + port + '.');
+httpServer.listen(port, function () {
+  console.log('parse-server-example running on port ' + port + '.');
 });
 
 // This will enable the Live Query real-time server

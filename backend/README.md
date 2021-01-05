@@ -1,6 +1,6 @@
 # Express installation 
-- git clone ...
-- cd ...
+- git clone https://github.com/AmooHashem/HW3.git
+- cd HW3/backend/
 - **sudo** npm install
 - npm start
 

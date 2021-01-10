@@ -6,13 +6,12 @@ const authenticateToken = (req, res, next) => {
     if (token === undefined) {
         console.log("Authentication Failed");
         res.status(401).send("توکن دسترسی یافت نشد.");
+        return;
     }
 
     Parse.User.enableUnsafeCurrentUser();
-    const user = Parse.User.become(token, null).then( (user) => {
+    Parse.User.become(token, null).then( (user) => {
         res.locals.user = user;
-        console.log(req.body);
-
         next();
     }, (_) => {
         res.status(401).send("توکن دسترسی نامعتبر است.");

@@ -16,26 +16,21 @@ admin.post('/post/crud', async function (req, res) {
   const postACL = new Parse.ACL();
   postACL.setPublicReadAccess(true);
 
-  console.log(body);
-
   post.setACL(postACL);
   post.set("title", body.title);
   post.set("content", body.content);
   post.set("createdBy", user);
-  post.save().then(function (post) {
-    console.log("22222");
-    res.send(post);
+  post.save().then((postResp) => {
+    const post = postResp.toJSON();
+    res.status(200).send({"title": post.title, 
+    "content": post.content,
+    "createdBy": {"username": post.createdBy.username, "email": post.createdBy.email}                  
+  });
+
   }, function (error) {
-    console.log("33333");
     res.status(error.code).send(error.message);
     return;
   });
-
-  // }, function (error) {
-  //   console.log("444444");
-  //   res.status(error.code).send(error.message);
-  //   return;
-  // });
 
 });
 

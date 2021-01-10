@@ -16,7 +16,8 @@
     "parse-server": "*"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "parse": "parse-dashboard --appId myAppId --masterKey myMasterKey --serverURL 'http://localhost:1337/parse'"
   },
   "engines": {
     "node": ">=4.3"

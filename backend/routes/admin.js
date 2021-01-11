@@ -37,6 +37,21 @@ admin.post('/post/crud', Middleware.checkForTitleAndContent,  async (req, res) =
 
 });
 
+admin.get("/post/crud/:id", (req, res) => {
+  console.log("Handling updating a post!");
+  
+  const id = req.params.id;
+  if (!id) {
+
+  } else {
+    const query = new Parse.Query(Post);
+    query.get(id).then((post) => {
+      res.status(200).send(post);
+    }, (_) => {
+      res.status(400).send("پست مورد نظر یافت نشد.");
+    })
+  }
+})
 
 
 admin.put('/post/crud/:id', Middleware.checkForTitleAndContent, async (req, res) => {
@@ -61,6 +76,53 @@ admin.put('/post/crud/:id', Middleware.checkForTitleAndContent, async (req, res)
 
     post.set("title", body.title);
     post.set("content", body.content);
+
+    post.save().then((postResp) => {
+      const post = postResp.toJSON();
+      res.status(200).send({"title": post.title, 
+      "content": post.content,
+      "createdBy": {"username": post.createdBy.username, "email": post.createdBy.email},
+      "id": post.objectId,
+      });
+  
+    }, function (_) {
+      res.status(401).send("شما اجازه‌ی تغییر این پست را ندارید.");
+      return;
+    });
+
+  }, (_) => {
+    res.status(400).send("پست درخواستی شما یافت نشد.");
+    return;
+  });
+
+})
+
+admin.delete('/post/crud/:id', async (req, res) => {
+  console.log("Handling deleting a post!");
+  
+  const id = req.params.id;
+  if (!id) {
+    res.status(400).send("خطا در url ارسالی");
+    return;
+  }
+  const user = res.locals.user;
+  Parse.User.enableUnsafeCurrentUser();
+
+  const query = new Parse.Query(Post);
+  query.get(id).then((post) => {
+
+    if(!post.getACL().getWriteAccess(user)) {
+      res.status(401).send("شما اجازه‌ی حذف این پست را ندارید.");
+      return;
+    }    
+
+    post.destroy().then((_) => {
+      res.status(204).send();
+      return;
+    }, (error) => {
+      console.log(error.message);
+      res.status(500).send(" خطای داخلی سرور " + error.message);
+    })
 
     post.save().then((postResp) => {
       const post = postResp.toJSON();

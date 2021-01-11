@@ -13,8 +13,10 @@ const authenticateToken = (req, res, next) => {
     Parse.User.become(token, null).then( (user) => {
         res.locals.user = user;
         next();
+        return;
     }, (_) => {
         res.status(401).send("توکن دسترسی نامعتبر است.");
+        return;
     });
 }
 

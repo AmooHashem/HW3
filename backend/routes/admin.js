@@ -29,7 +29,7 @@ admin.post('/post/crud', Middleware.checkForTitleAndContent,  async (req, res) =
     "createdBy": {"username": post.get("createdBy").get("username"), "email": post.get("createdBy").get("email")},
     "id": post.id,
     });
-
+    return;
   }, function (error) {
     res.status(error.code).send(error.message);
     return;
@@ -37,19 +37,39 @@ admin.post('/post/crud', Middleware.checkForTitleAndContent,  async (req, res) =
 
 });
 
-admin.get("/post/crud/:id", (req, res) => {
-  console.log("Handling updating a post!");
+admin.get(["/post/crud", "/post/crud/:id"], (req, res) => {
+  console.log("Handling getting a post!");
   
   const id = req.params.id;
+  const user = res.locals.user;
+  const query = new Parse.Query(Post);
   if (!id) {
-
-  } else {
-    const query = new Parse.Query(Post);
-    query.get(id).then((post) => {
-      res.status(200).send(post);
+    console.log(user.id);
+    query.equalTo("createdBy", user);
+    query.find().then((posts) => {
+      console.log(posts.length);
+      console.log(posts[0]);
+      res.status(200).send(posts.map((post) => {
+        post.set("createdBy", post.get("createdBy").id);
+        post.set("ACL", null);
+        return post;
+      }));
+      return;
     }, (_) => {
       res.status(400).send("پست مورد نظر یافت نشد.");
-    })
+      return;
+    });
+  } else {
+    query.get(id).then((post) => {
+      const userId = post.get("createdBy").id;
+      post.set("createdBy", userId);
+      post.set("ACL", null);
+      res.status(200).send(post);
+      return;
+    }, (_) => {
+      res.status(400).send("پست مورد نظر یافت نشد.");
+      return;
+    });
   }
 })
 
@@ -122,6 +142,7 @@ admin.delete('/post/crud/:id', async (req, res) => {
     }, (error) => {
       console.log(error.message);
       res.status(500).send(" خطای داخلی سرور " + error.message);
+      return;
     })
 
     post.save().then((postResp) => {
@@ -131,6 +152,7 @@ admin.delete('/post/crud/:id', async (req, res) => {
       "createdBy": {"username": post.createdBy.username, "email": post.createdBy.email},
       "id": post.objectId,
       });
+      return;
   
     }, function (_) {
       res.status(401).send("شما اجازه‌ی تغییر این پست را ندارید.");

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://cdn.fontcdn.ir/Font/Persian/Sahel/Sahel.css' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.cdnfonts.com/css/lastwaerk-black" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <title>حساب کاربری</title>
+
+    <link rel="icon" href="./files/black_favicon/favicon.ico">
+    <link rel="icon" sizes="16x16" href="./files/black_favicon/favicon-16x16.png">
+    <link rel="icon" sizes="32x32" href="./files/black_favicon/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="./files/black_favicon/apple-touch-icon.png">
+    <link rel="icon" sizes="192x192" href="./files/black_favicon/android-chrome-192x192.png">
+    <link rel="icon" sizes="512x512" href="./files/black_favicon/android-chrome-512x512.png">
+
+</head>
+
+<body id="body" class="signin-body">
+
+    <nav class="navbar minimal-navbar">
+        <a id="logo-container">
+            <div class="navbar-brand homeLink"  onclick="goHome()">
+                    <img src="./files/blue_favicon/android-chrome-512x512.png" alt="" loading="lazy">
+                    <p id="logo-text">Fail Pardazan</p>
+            </div>
+        </a>
+        <a onclick="goHome()" class="go-back-link homeLink">بازگشت به خانه ></a>
+    </nav>
+
+
+
+    <main>
+
+        <div id="main-form">
+
+            <div id="sign-form">
+
+                <div class="form-button-container">
+                    <button type="button" class="form-head-button" id="signup-head-button"
+                        onClick="change_form_to_signup()">
+                        ثبت نام
+                    </button><button type="button" class="form-head-button" id="signin-head-button"
+                        onClick="change_form_to_signin()">
+                        ورود
+                    </button>
+                </div>
+
+                <div class="form-container">
+                    <div class="signin-form-container" id="signin-form" >
+                        <form action="#" class="signin-form" id="signinForm" method="POST" onsubmit="return validateSigninForm()">
+                            <h1>ورود</h1>
+                            <input type="email" name="email" id="signin-email" class="signin-form-text-input" placeholder="ایمیل"
+                                required>
+                            <input type="password" name="password" class="signin-form-text-input" placeholder="رمز عبور"
+                                id="signin-password" equired>
+                            <input type="submit" class="signin-form-button" value="ورود">
+                            <div class="signin-form-error" id="signin-form-error">
+                                <label>یو فاکد آپ</label>
+                                <img src="files/redlogo.png" alt="">
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <div class="signup-form-container" id="signup-form">
+                        <form action="#" class="signin-form" id="signupForm" method="GET" onsubmit="return validateSignupForm()">
+                            <h1>ثبت نام</h1>
+                            <input type="email" name="email" id="email" class="signin-form-text-input" placeholder="ایمیل"
+                                required>
+                            <input type="password" name="password" id="password" class="signin-form-text-input" placeholder="رمز عبور"
+                                required>
+                            <input type="password" name="password-confirm" id="password-confirm" class="signin-form-text-input"
+                                placeholder="تکرار رمز عبور" required>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" name="termsCheckbox" class="signin-checkbox" id="termsCheckbox"
+                                    required>
+                                <label>قوانین و شرایط را می‌پذیرم</label>
+                            </div>
+
+                            <input type="submit" class="signin-form-button" value="ثبت نام">
+                            <div class="signin-form-error" id="signup-form-error">
+                                <label>یو فاکد آپ</label>
+                                <img src="files/redlogo.png" alt="">
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="sign-form-picture">
+                <picture>
+                    <source id="pointless-picture" media="(min-width:1000px)" srcset="files/signup-highQ-light.jpg">
+                    <img id="pointless-image" src="files/signup-lowQ-light.jpg" alt="OoOoF">
+                </picture>
+            </div>
+
+        </div>
+
+    </main>
+    </div>
+    <script src="signinScripts.js"></script>
+</body>
+
+</html>

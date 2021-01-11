@@ -1,0 +1,241 @@
+.go-back-link {
+    text-decoration: none;
+    color: white;
+    margin-left: 10px;
+    font-family: Sahel;
+
+
+}
+
+.go-back-link:hover {
+    text-decoration: none;
+    color: rgb(11, 74, 129);
+}
+
+.homeLink:hover {
+    cursor: pointer;
+}
+
+body {
+    & * {
+        transition: background-color 0.5s;
+    }
+}
+
+.signin-body {
+    font-family: Sahel;
+    background-color: rgb(173, 193, 255);
+    transition: background-color 0.5s, color 0.7s, display 0.5s;
+    transition: opacity .5s;
+
+    &.night-mode {
+        background-color: rgb(23, 78, 112);
+    }
+
+    main {
+        display: flex;
+        height: 85vh;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
+
+    #main-form {
+        background-color: rgb(78, 146, 206);
+        // width: 100%;
+        max-width: 1000px;
+        // min-width: 500px;
+        width: 90%;
+        height: 75%;
+        margin-right: 50px !important;
+        margin-left: 50px !important;
+        display: flex;
+        flex-direction: row;
+        direction: rtl;
+
+        &.night-mode {
+            background-color: rgb(12, 55, 90);
+        }
+
+
+        #sign-form-picture {
+            height: 100%;
+            width: 100%;
+            // background-color: black;
+            overflow: hidden;
+            object-fit: contain;
+            // background-image: url('./files/signup-highQ-light.jpg');
+            picture {
+                width: 100%;
+            }
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: fit;
+            }
+            @media screen and (max-width:600px) {
+                display: none;
+            }
+        }
+
+        #sign-form {
+            width: 80%;
+            display: inline;
+            object-fit: contain;
+
+            @media screen and (max-width: 600px) {
+                width: 100%;
+            }
+
+            .form-button-container {
+                width: 100%;
+                height: 10%;
+                // min-width: 400px;
+                .form-head-button {
+                    background-color: rgb(12, 55, 90);
+                    color: rgb(78, 146, 206);
+                    
+                    font-size: 20px;
+                    width: 50%;
+                    height: 100%;
+                    display: inline;
+                    margin: 0;
+                    border: 0;
+                    padding:0;
+                    outline: none;
+                    border-radius: 0 0 5px 5px;
+
+                    &.selected-form-button {
+                        background-color: transparent;
+                        color: white;
+                    }
+                }
+            }
+
+            &.night-mode .form-button-container {
+                .form-head-button {
+                    background-color: rgb(78, 146, 206);
+                    color: rgb(12, 55, 90);
+                    &.selected-form-button {
+                        background-color: transparent;
+                        color: white;
+                    }
+                }
+            }
+
+            .form-container {
+                height: 90%;
+                .signin-form-container {
+                    position: relative;
+                    height: 100%;
+                    display: none;
+                }
+
+                .signup-form-container {
+                    position: relative;
+                    height: 100%;
+                    display: none;
+                }
+
+                .displayed-form {
+                    display: block;
+                }
+
+                .signin-form {
+                    height: 100%;
+                    width: 100%;
+                    align-items: center;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    padding:  0 10px 40px 10px;
+
+
+                    &>h1 {
+                        color: white;
+                        display: flex;
+                    }
+
+                    &>* {
+                        display: block;
+                        width: 100%;
+                        height: 50px;
+                        margin-right: auto;
+                        margin-left: auto;
+                        margin-top: 15px;
+                        border-radius: 5px;
+                        outline: none;
+                        &::placeholder {
+                            color: rgba(255, 255, 255, 0.589);
+                        }
+                    }
+
+                    input:not([type=button]), input:not([type=submit]) {
+                        padding: 0 10px 0 10px;
+                        background-color: transparent;
+                        border: 2px solid white;
+                        color: white;
+                           
+                    }
+
+                    input[type=button], input[type=submit] {
+                        background-color: rgb(12, 55, 90);
+                        color: white;
+                        font-size: 15px;
+                        border: none;
+
+                    }
+
+                    &.night-mode input[type=button], &.night-mode input[type=submit]{
+                        background-color: rgb(78, 146, 206);
+                    }
+
+                    &>.checkbox-container {
+                        display: flex;
+                        align-items: center;
+                        
+                        &>input {
+                            margin-left: 10px;
+                        }
+
+                        &>label {
+                            margin: 0;
+                            color: white;
+                        }
+
+                    }
+
+                    .signin-form-error {
+                        border: 2px solid rgba(255, 0, 0, 0.507);
+                        font-size: 15px;
+                        padding: 0 10px ;
+                        // display: flex;
+                        display: none;
+                        align-content: center;
+                        justify-content: space-between;
+                        align-items: center;
+                        overflow: scroll;
+                        overflow-x: hidden;
+                        &::-webkit-scrollbar {
+                            display: none;
+                            width: 0px;
+                            background: transparent;
+                        }
+                        &> img {
+                            height: 100%;
+                        }
+
+                        &>label {
+                            padding-top: 5px;
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
+
+}

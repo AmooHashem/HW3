@@ -18,4 +18,12 @@ const authenticateToken = (req, res, next) => {
     });
 }
 
-module.exports = {authenticateToken};
+const checkForTitleAndContent = (req, res, next) => {
+    if (!req.body.title || !req.body.content) {
+      res.status(400).send("Request must contain Title and Content");
+      return;
+    }
+    next();
+  }
+
+module.exports = {authenticateToken, checkForTitleAndContent};

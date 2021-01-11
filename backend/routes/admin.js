@@ -2,12 +2,12 @@
 const express = require('express');
 const admin = express.Router();
 const Post = Parse.Object.extend("Post");
-const authenticateToken = require("../middleware/tokenAuthMiddleware") ;
+const middleware = require("../middleware/tokenAuthMiddleware") ;
 const user = require('./user');
 
-admin.use(authenticateToken.authenticateToken);
+admin.use(middleware.authenticateToken);
 
-admin.post('/post/crud', checkForTitleAndContent,  async (req, res) => {
+admin.post('/post/crud', middleware.checkForTitleAndContent,  async (req, res) => {
   console.log("Handling posting a post!");
   const body = req.body;
   Parse.User.enableUnsafeCurrentUser();
@@ -39,7 +39,7 @@ admin.post('/post/crud', checkForTitleAndContent,  async (req, res) => {
 
 
 
-admin.put('/post/crud/:id', checkForTitleAndContent, async (req, res) => {
+admin.put('/post/crud/:id', middleware.checkForTitleAndContent, async (req, res) => {
   console.log("Handling updating a post!");
   
   const id = req.params.id;
@@ -71,13 +71,11 @@ admin.put('/post/crud/:id', checkForTitleAndContent, async (req, res) => {
       });
   
     }, function (error) {
-      console.log(error.message);
       res.status(401).send("شما اجازه‌ی تغییر این پست را ندارید.");
       return;
     });
 
   }, (error) => {
-    console.log(error.message);
     res.status(400).send("پست درخواستی شما یافت نشد.");
     return;
   });
@@ -85,12 +83,6 @@ admin.put('/post/crud/:id', checkForTitleAndContent, async (req, res) => {
 })
 
 
-function checkForTitleAndContent(req, res, next) {
-  if (!req.body.title || !req.body.content) {
-    res.status(400).send("Request must contain Title and Content");
-    return;
-  }
-  next();
-}
+
 
 module.exports = admin;

@@ -70,18 +70,17 @@ admin.put('/post/crud/:id', middleware.checkForTitleAndContent, async (req, res)
       "id": post.objectId,
       });
   
-    }, function (error) {
+    }, function (_) {
       res.status(401).send("شما اجازه‌ی تغییر این پست را ندارید.");
       return;
     });
 
-  }, (error) => {
+  }, (_) => {
     res.status(400).send("پست درخواستی شما یافت نشد.");
     return;
   });
 
 })
-
 
 
 

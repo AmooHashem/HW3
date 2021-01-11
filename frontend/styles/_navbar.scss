@@ -1,0 +1,200 @@
+.navbar {
+    height: 10vh;
+    background-color: rgba(97, 197, 243, 0.993);
+    box-shadow: 0 3px 10px gray;
+    z-index: 5;
+
+    #logo-container {
+        margin: auto;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #sidebar-open-btn {
+        font-size: 36px;
+        cursor: pointer;
+        margin-top: auto;
+        margin-bottom: auto;
+
+        @media screen and (min-width:600px) {
+            display: none !important;
+        }
+
+        @media screen and (max-width:600px) {
+            display: inline;
+        }
+    }
+
+    #sidebar-close-btn {
+        font-size: 36px;
+        cursor: pointer;
+        margin-top: auto;
+        margin-bottom: auto;
+
+        @media screen and (min-width:600px) {
+            display: none !important;
+        }
+
+        @media screen and (max-width:600px) {
+            display: none;
+        }
+    }
+
+    a img {
+        height: 8vh;
+    }
+
+    &.night-mode {
+        background-color: rgba(21, 87, 124, 0.993) !important;
+        box-shadow: 0 -3px 10px black;
+
+        #buttons-container {
+
+            .navbar-link {
+                color: white;
+            }
+
+            #login-button {
+                color: rgba(77, 207, 253, 0.993);
+                border-color: rgba(107, 207, 253, 0.993);
+            }
+    
+            #register-button {
+                background-color: rgba(1, 160, 218, 0.993);
+                color: black;
+            }
+
+            @media screen and (max-width:600px) {
+                button{
+                    color: white !important;
+                    background-color: transparent !important;
+                    border-color: white !important;
+                }
+            }
+
+        }
+
+        a {
+            color: white
+        }
+
+    }
+    transition: background-color 1s, color 1.2s;
+    & > * {
+        transition: background-color 1s, color 1.2s;
+    }
+}
+
+#buttons-container {
+    position: absolute;
+    width: 90%;
+    right: 10%;
+    display: inline-flex;
+    justify-content: flex-start;
+    height: 6vh;
+
+    @media screen and (max-width: 600px) {
+        box-shadow: 0 -3px 10px gray;
+        position: fixed;
+        right: 0;
+        width: 100%;
+        background-color: rgba(97, 197, 243, 0.993);
+        bottom: 0;
+        place-content: space-between;
+        z-index: 5;
+        height: 8vh;
+        &.night-mode {
+            color: white !important;
+            background-color: rgba(26, 102, 146, 0.993) !important;
+            box-shadow: 0 3px 10px black;
+        }
+    }
+
+    &>button {
+        width: 6%;
+        margin: 0 20px;
+        height: 100%;
+        align-self: center;
+        background-color: inherit;
+        border: none;
+        font-size: 1.3rem;
+        transition: all 2s;
+
+        @media screen and (max-width: 600px) {
+            width: 25%;
+            margin: inherit;
+            border-radius: 0px;
+        }
+
+        
+    }
+
+    &>button.active {
+        border-bottom: 3px solid;
+    }
+
+    #home-button {
+        margin-right: 130px;
+
+        @media screen and (max-width: 600px) {
+            margin-right: inherit;
+        }
+    }
+
+    #data-button {
+        @media screen and (max-width: 600px) {}
+    }
+
+    #login-button {
+        justify-self: flex-end;
+        margin-right: auto;
+        width: 12%;
+        border: 1px solid rgba(12, 106, 150, 0.993);
+        border-radius: 0;
+
+        @media screen and (max-width: 600px) {
+            margin-right: inherit;
+            border: 0;
+            width: 25%;
+        }
+    }
+
+    #register-button {
+        width: 12%;
+        margin-right: 5px;
+        color: white;
+        border: 0;
+        background-color: rgba(12, 106, 150, 0.993);
+        border-radius: 0;
+
+        @media screen and (max-width: 600px) {
+            width: 25%;
+            border: 0;
+            background-color: inherit;
+            color: inherit;
+        }
+    }
+
+
+    #login-button:hover,
+    #register-button:hover {
+        @media screen and (max-width: 600px) {
+            border-bottom: 3px solid rgba($color: #101077, $alpha: 0.5);
+        }
+    }
+}
+
+#logo-text {
+    color: white;
+    display: inline;
+}
+
+.minimal-navbar {
+    background-color: transparent;
+    box-shadow: none;
+    #logo-container {
+        width: 40%;
+        margin-right: 0;
+    }
+}

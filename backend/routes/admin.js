@@ -44,7 +44,6 @@ admin.get(["/post/crud", "/post/crud/:id"], (req, res) => {
   const user = res.locals.user;
   const query = new Parse.Query(Post);
   if (!id) {
-    console.log(user.id);
     query.equalTo("createdBy", user);
     query.find().then((posts) => {
       console.log(posts.length);

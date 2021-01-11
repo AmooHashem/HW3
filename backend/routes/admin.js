@@ -2,12 +2,12 @@
 const express = require('express');
 const admin = express.Router();
 const Post = Parse.Object.extend("Post");
-const middleware = require("../middleware/tokenAuthMiddleware") ;
+const Middleware = require("../middleware/tokenAuthMiddleware") ;
 const user = require('./user');
 
-admin.use(middleware.authenticateToken);
+admin.use(Middleware.authenticateToken);
 
-admin.post('/post/crud', middleware.checkForTitleAndContent,  async (req, res) => {
+admin.post('/post/crud', Middleware.checkForTitleAndContent,  async (req, res) => {
   console.log("Handling posting a post!");
   const body = req.body;
   Parse.User.enableUnsafeCurrentUser();
@@ -39,7 +39,7 @@ admin.post('/post/crud', middleware.checkForTitleAndContent,  async (req, res) =
 
 
 
-admin.put('/post/crud/:id', middleware.checkForTitleAndContent, async (req, res) => {
+admin.put('/post/crud/:id', Middleware.checkForTitleAndContent, async (req, res) => {
   console.log("Handling updating a post!");
   
   const id = req.params.id;

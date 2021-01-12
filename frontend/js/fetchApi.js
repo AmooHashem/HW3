@@ -1,4 +1,4 @@
-const storage = localStorage.getItem('USER')
+let storage = localStorage.getItem('USER')
   ? JSON.parse(localStorage.getItem('USER'))
   : {};
 

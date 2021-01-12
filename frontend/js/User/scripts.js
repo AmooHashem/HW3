@@ -9,11 +9,11 @@ if (night_mode == "night") {
     night_mode = "day";
 }
 
-const storage = localStorage.getItem('USER')
+let temporary_storage = localStorage.getItem('USER')
     ? JSON.parse(localStorage.getItem('USER'))
     : {};
 
-if (storage.token) {
+if (temporary_storage.token) {
     goHome();
 }
 
@@ -83,6 +83,9 @@ function validateSignupForm(event) {
                         token: response.sessionToken,
                     })
                 )
+                setTimeout(() => {
+                    goHome();
+                }, 3000);
             },
             (error) => {
                 div.style.display = "flex";
@@ -100,8 +103,6 @@ function validateSignupForm(event) {
     }
 }
 
-
-
 function validateSigninForm(event) {
     event.preventDefault();
 
@@ -115,11 +116,33 @@ function validateSigninForm(event) {
     isFormValid = validatePassword(password) && email.validity.valid;
     if (isFormValid) {
         div.style.display = "none";
-        return false;
+        signin(email.value, password.value).then(
+            (response) => {
+                div.style.display = "flex";
+                label.innerHTML = 'خوش آمدید!';
+                localStorage.setItem(
+                    'USER',
+                    JSON.stringify({
+                        token: response.sessionToken,
+                    })
+                )
+                setTimeout(() => {
+                    goHome();
+                }, 3000);
+            },
+            (error) => {
+                div.style.display = "flex";
+                label.innerHTML = error;
+            }
+        ).catch(
+            (error) => {
+                div.style.display = "flex";
+                label.innerHTML = error;
+            }
+        )
     } else {
         div.style.display = "flex";
         label.innerHTML = validationErrorMessage;
-        return false;
     }
 }
 

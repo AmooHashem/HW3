@@ -24,7 +24,7 @@ admin.post('/post/crud', Middleware.checkForTitleAndContent,  async (req, res) =
   post.set("content", body.content);
   post.set("createdBy", user);
   post.save().then((post) => {
-    res.status(200).send({"title": post.get("title"), 
+    res.status(200).json({"title": post.get("title"), 
     "content": post.get("content"),
     "createdBy": {"username": post.get("createdBy").get("username"), "email": post.get("createdBy").get("email")},
     "id": post.id,
@@ -48,11 +48,11 @@ admin.get(["/post/crud", "/post/crud/:id"], (req, res) => {
     query.find().then((posts) => {
       console.log(posts.length);
       console.log(posts[0]);
-      res.status(200).send(posts.map((post) => {
+      res.status(200).json({"posts": posts.map((post) => {
         post.set("createdBy", post.get("createdBy").id);
         post.set("ACL", null);
         return post;
-      }));
+      })});
       return;
     }, (_) => {
       res.status(400).send("پست مورد نظر یافت نشد.");
@@ -63,7 +63,7 @@ admin.get(["/post/crud", "/post/crud/:id"], (req, res) => {
       const userId = post.get("createdBy").id;
       post.set("createdBy", userId);
       post.set("ACL", null);
-      res.status(200).send(post);
+      res.status(200).json({"post": post});
       return;
     }, (_) => {
       res.status(400).send("پست مورد نظر یافت نشد.");
@@ -98,7 +98,7 @@ admin.put('/post/crud/:id', Middleware.checkForTitleAndContent, async (req, res)
 
     post.save().then((postResp) => {
       const post = postResp.toJSON();
-      res.status(200).send({"title": post.title, 
+      res.status(200).json({"title": post.title, 
       "content": post.content,
       "createdBy": {"username": post.createdBy.username, "email": post.createdBy.email},
       "id": post.objectId,
@@ -146,7 +146,7 @@ admin.delete('/post/crud/:id', async (req, res) => {
 
     post.save().then((postResp) => {
       const post = postResp.toJSON();
-      res.status(200).send({"title": post.title, 
+      res.status(200).json({"title": post.title, 
       "content": post.content,
       "createdBy": {"username": post.createdBy.username, "email": post.createdBy.email},
       "id": post.objectId,

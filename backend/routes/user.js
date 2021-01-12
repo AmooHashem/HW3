@@ -30,7 +30,7 @@ user.post('/signup', async (req, res) => {
 
   try {
     await user.signUp();
-    res.status(200).send(user);
+    res.status(200).json({user});
   } catch (error) {
     if (error.message == "Account already exists for this email address.") {
       res.status(409).send("این اکانت قبلا ساخته شده است!");
@@ -65,8 +65,8 @@ user.post('/signin', async function (req, res) {
 
 
   try {
-    const user = await Parse.User.logIn(email, password, { usePost: true });
-    res.status(200).send(user);
+    const user = await Parse.User.logIn(email, password, {usePost: true});
+    res.status(200).json({user});
   } catch (error) {
     console.log(error.message + " : " + error.code);
     res.status(401).send("ایمیل یا رمز عبور شما نامعتبر است.");

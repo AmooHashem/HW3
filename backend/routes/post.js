@@ -8,7 +8,7 @@ post.get('/', async (_, res) => {
   const Post = Parse.Object.extend("Post");
   (new Parse.Query(Post)).find()
     .then( (posts) => {
-      res.status(200).send(posts.map((post) => {
+      res.status(200).json({"posts": posts.map((post) => {
         return {
           id: post.get("id"),
           title: post.get("title"),
@@ -16,7 +16,7 @@ post.get('/', async (_, res) => {
           createdBy: post.get("createdBy").id,
           createdAt: post.createdAt
         }
-      }));
+      })});
       return;
     }, (error) => {
       console.log(error.message);

@@ -1,14 +1,14 @@
 
 var express = require('express');
 var user = express.Router();
-const Middleware = require("../middleware/tokenAuthMiddleware") ;
+const Middleware = require("../middleware/tokenAuthMiddleware");
 
 user.get('/signup', (_, res) => {
   res.status(405).send("only `POST` method is valid");
 })
 
 user.post('/signup', async (req, res) => {
-  const body = req.body 
+  const body = req.body
 
   const email = body.email;
   const password = body.password;
@@ -26,7 +26,7 @@ user.post('/signup', async (req, res) => {
 
   user.set("email", email);
   user.set("password", password);
-   user.set("username", body.username);
+  user.set("username", email);
 
   try {
     await user.signUp();
@@ -36,7 +36,7 @@ user.post('/signup', async (req, res) => {
       res.status(409).send("این اکانت قبلا ساخته شده است!");
     }
     console.log(error.message + " : " + error.code);
-    res.status(500).send( "خطای داخلی سرور:" + error.message);
+    res.status(500).send(JSON.stringify({ message: "خطای داخلی سرور:" + error.message }));
   }
 });
 
@@ -48,7 +48,7 @@ user.get('/signin', (_, res) => {
 })
 
 user.post('/signin', async function (req, res) {
-  const body = req.body 
+  const body = req.body
 
   const email = body.email;
   const password = body.password;
@@ -65,7 +65,7 @@ user.post('/signin', async function (req, res) {
 
 
   try {
-    const user = await Parse.User.logIn(email, password, {usePost: true});
+    const user = await Parse.User.logIn(email, password, { usePost: true });
     res.status(200).send(user);
   } catch (error) {
     console.log(error.message + " : " + error.code);

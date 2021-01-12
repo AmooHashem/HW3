@@ -9,29 +9,35 @@ if (night_mode == "night") {
     night_mode = "day";
 }
 
+const storage = localStorage.getItem('USER')
+    ? JSON.parse(localStorage.getItem('USER'))
+    : {};
+
+if (storage.token) {
+    goHome();
+}
+
 function change_theme() {
     let elements = Array.from(document.querySelectorAll(".minimal-navbar, .signin-body, #main-form, #sign-form, .signin-form, .form-container"));
     night_mode = (night_mode == "night" ? "day" : "night");
 
     if (night_mode == "night") {
-        elements.forEach (element => {
+        elements.forEach(element => {
             element.classList.add("night-mode");
-        });    
+        });
         document.getElementById("pointless-picture").srcset = "files/signup-highQ-dark.jpg"
         document.getElementById("pointless-image").src = "files/signup-highQ-dark.jpg"
     } else {
-        elements.forEach (element => {
+        elements.forEach(element => {
             element.classList.remove("night-mode");
             document.getElementById("pointless-picture").srcset = "files/signup-highQ-light.jpg"
-            document.getElementById("pointless-image").src = "files/signup-highQ-light.jpg"      
+            document.getElementById("pointless-image").src = "files/signup-highQ-light.jpg"
         });
     }
 }
 
 isFormValid = true;
 let validationErrorMessage = "";
-
-console.log(requestedTab);
 
 if (requestedTab == "signup") {
     change_form_to_signup()
@@ -40,21 +46,86 @@ if (requestedTab == "signup") {
 }
 
 function change_form_to_signin() {
-    console.log('signin');
     document.getElementById('signin-head-button').classList.add('selected-form-button');
     document.getElementById('signup-head-button').classList.remove('selected-form-button');
     document.getElementById('signup-form').classList.remove('displayed-form');
     document.getElementById('signin-form').classList.add('displayed-form');
-    }
-    
-    function change_form_to_signup() {
-    console.log('signup');
+}
+
+function change_form_to_signup() {
     document.getElementById('signup-head-button').classList.add('selected-form-button');
     document.getElementById('signin-head-button').classList.remove('selected-form-button');
     document.getElementById('signup-form').classList.add('displayed-form');
     document.getElementById('signin-form').classList.remove('displayed-form');
-    }
+}
 
+function validateSignupForm(event) {
+    event.preventDefault();
+
+    let div = document.getElementById('signup-form-error');
+    let label = div.getElementsByTagName("label")[0];
+
+    let email = document.getElementById("email");
+    let password = document.getElementById("password");
+    let confirm_password = document.getElementById("password-confirm");
+
+
+    isFormValid = validatePassword(password, confirm_password) && email.validity.valid;
+    if (isFormValid) {
+        div.style.display = "none";
+        signup(email.value, password.value).then(
+            (response) => {
+                div.style.display = "flex";
+                label.innerHTML = 'اکانت شما با موفقیت ساخته شد!';
+                localStorage.setItem(
+                    'USER',
+                    JSON.stringify({
+                        token: response.sessionToken,
+                    })
+                )
+            },
+            (error) => {
+                div.style.display = "flex";
+                label.innerHTML = error;
+            }
+        ).catch(
+            (error) => {
+                div.style.display = "flex";
+                label.innerHTML = error;
+            }
+        )
+    } else {
+        div.style.display = "flex";
+        label.innerHTML = validationErrorMessage;
+    }
+}
+
+
+
+function validateSigninForm(event) {
+    event.preventDefault();
+
+    let div = document.getElementById('signin-form-error');
+    let label = div.getElementsByTagName("label")[0];
+
+    let email = document.getElementById("signin-email");
+    let password = document.getElementById("signin-password");
+
+
+    isFormValid = validatePassword(password) && email.validity.valid;
+    if (isFormValid) {
+        div.style.display = "none";
+        return false;
+    } else {
+        div.style.display = "flex";
+        label.innerHTML = validationErrorMessage;
+        return false;
+    }
+}
+
+function goHome() {
+    window.location.replace(`index.html?theme=${night_mode}`);
+}
 
 function validatePassword(password, confirm_password) {
     if (password.value.length < 5) {
@@ -67,7 +138,7 @@ function validatePassword(password, confirm_password) {
     }
     if (password.value != confirm_password.value) {
         confirm_password.isValid = false
-        validationErrorMessage = "پسورد ها همخوانی ندارند.";
+        validationErrorMessage = "پسوردها همخوانی ندارند.";
         return false
     } else {
         password.isValid = true;
@@ -77,49 +148,7 @@ function validatePassword(password, confirm_password) {
     }
 }
 
-function validateSignupForm() {
-    let div = document.getElementById('signup-form-error');
-    let label = div.getElementsByTagName("label")[0];
-
-    let email = document.getElementById("email");
-    let password = document.getElementById("password");
-    let confirm_password = document.getElementById("password-confirm");
-
-
-    isFormValid = validatePassword(password, confirm_password) && email.validity.valid;
-    if (isFormValid) {
-        div.style.display = "none";
-        return true;
-    } else {
-        div.style.display = "flex";
-        label.innerHTML =  validationErrorMessage;
-        return false;
-    }
-}
-
-
-function validateSigninForm() {
-    let div = document.getElementById('signin-form-error');
-    let label = div.getElementsByTagName("label")[0];
-
-    let email = document.getElementById("signin-email");
-    let password = document.getElementById("signin-password");
-
-
-    isFormValid = validatePassword(password) && email.validity.valid;
-    if (isFormValid) {
-        div.style.display = "none";
-        return true;
-    } else {
-        div.style.display = "flex";
-        label.innerHTML =  validationErrorMessage;
-        return false;
-    }
-}
-
-function goHome() {
-    transitionToPage(`index.html?theme=${night_mode}`);
-}
+// for page transitions:
 
 window.transitionToPage = function (href) {
     document.querySelector('body').style.opacity = 0
@@ -127,7 +156,6 @@ window.transitionToPage = function (href) {
         window.location.href = href
     }, 500)
 }
-
 
 document.addEventListener('DOMContentLoaded', function (event) {
     setTimeout(function () {

@@ -19,3 +19,10 @@ const signup = async (email, password) => {
   }
   return await fetchApi(urls.SIGNUP, fetchOptions);
 }
+
+const signout = async () => {
+  const fetchOptions = {
+    method: 'GET',
+  }
+  return await fetchApi(urls.SIGNOUT, fetchOptions);
+}

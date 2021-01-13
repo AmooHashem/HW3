@@ -84,7 +84,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
         : {};
 
     if (temporary_storage.token) {
-        document.getElementById("")
+        document.getElementById("login-button").style.display = 'none';
+        document.getElementById("register-button").style.display = 'none';
+    } else {
+        document.getElementById("signout-button").style.display = 'none';
     }
 }
 
@@ -97,6 +100,7 @@ const signout = () => {
                     token: '',
                 })
             )
+            location.reload();
         }
     )
 }

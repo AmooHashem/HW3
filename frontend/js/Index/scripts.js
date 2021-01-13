@@ -77,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 ///////////////////////////////
 
-
 {
     let temporary_storage = localStorage.getItem('USER')
         ? JSON.parse(localStorage.getItem('USER'))
@@ -89,7 +88,19 @@ document.addEventListener('DOMContentLoaded', function (event) {
     } else {
         document.getElementById("signout-button").style.display = 'none';
     }
+
+    _getAllPosts().then(
+        (response) => {
+            console.log(response)
+            // response.posts.forEach(myFunction);
+            showPost();
+        },
+        () => {
+            console.log("ERROR")
+        }
+    )
 }
+
 
 const signout = () => {
     _signout().then(
@@ -104,3 +115,49 @@ const signout = () => {
         }
     )
 }
+
+
+
+function showPost(item, index) {
+    const cardHolder = document.getElementById("cardHolder");
+    console.log(cardHolder)
+    cardHolder.innerHTML += '<div class="card">'+
+
+    '<div class="datum team-rank">'+
+      '<div class="rank">'+
+        رتبه
+      </div>
+      <div class="rank-number">
+        ۲۳
+      </div>
+    </div>
+
+
+    <div class="datum score-section">
+      <div class="key">امتیاز</div>
+      <div class="score">۱۴</div>
+    </div>
+
+
+    <div class="datum">
+      <div class="key">
+        نام تیم
+      </div>
+      <div class="value">
+        وب چمپز
+      </div>
+    </div>
+
+
+    <div class="datum">
+      <div class="key key-uni">
+        نام دانشگاه و کشور
+      </div>
+      <div class="value">
+        صنعتی شریف - ایران
+      </div>
+    </div>
+
+  </div>
+'
+} 

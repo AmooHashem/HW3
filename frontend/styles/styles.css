@@ -1,3 +1,23 @@
+#cardHolder {
+  padding: 10px;
+  display: flex;
+  align-items: center; }
+  #cardHolder .card {
+    min-height: 30vh;
+    background-color: #c0d0d6;
+    margin: 10px;
+    display: flex;
+    justify-content: space-evenly; }
+
+.center {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center; }
+
+hr {
+  padding: 0;
+  margin: 0; }
+
 html {
   font-size: 80%; }
 
@@ -30,118 +50,6 @@ html {
       background: transparent; }
     #body #main.night-mode {
       background-color: #616161 !important; }
-
-.cards {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; }
-  .cards .card {
-    width: 22%;
-    height: 40%;
-    background-color: #577493;
-    margin: 2% 5px;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center; }
-    @media screen and (max-width: 1000px) {
-      .cards .card {
-        width: 30%; } }
-    @media screen and (max-width: 800px) {
-      .cards .card {
-        width: 45%; } }
-    @media screen and (max-width: 600px) {
-      .cards .card {
-        width: 96%; } }
-    .cards .card > * {
-      transition: background-color 1s, color 1.2s; }
-    .cards .card.night-mode .datum {
-      background-color: #3B8EE7; }
-    .cards .card.night-mode .team-rank {
-      background-color: #D7496A; }
-    .cards .card.night-mode .score-section {
-      background-color: #C8A33E; }
-    .cards .card .datum {
-      width: 90%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #E3E1A9;
-      height: 20%;
-      border-radius: 20px; }
-    .cards .card .team-rank {
-      display: flex;
-      width: 50%;
-      height: 25%;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #D1634E;
-      border-radius: 20px; }
-      .cards .card .team-rank .rank {
-        padding-right: 10px;
-        font-size: 3rem;
-        font-weight: bold; }
-        @media screen and (max-width: 1000px) {
-          .cards .card .team-rank .rank {
-            font-size: 2rem; } }
-      .cards .card .team-rank .rank-number {
-        color: yellow;
-        font-size: 3rem;
-        padding-left: 10px; }
-    .cards .card .score-section {
-      background-color: #6AA349;
-      display: flex;
-      width: 43%;
-      height: 25%;
-      align-content: center;
-      justify-content: center;
-      margin: 0 5px;
-      padding: 0; }
-      .cards .card .score-section .key {
-        display: none; }
-        @media screen and (max-width: 600px) {
-          .cards .card .score-section .key {
-            display: block; } }
-      .cards .card .score-section .score {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-        font-size: 4rem;
-        color: white;
-        padding: 30px auto;
-        text-align: center;
-        border-radius: 15px; }
-  .cards .card:hover {
-    transition: all 0.5s;
-    box-shadow: 5px 5px 30px gray; }
-
-.key {
-  font-size: 1.3rem;
-  font-weight: bold;
-  text-align: center;
-  padding-right: 7px; }
-  @media screen and (max-width: 1000px) {
-    .key {
-      font-size: 1.2rem; } }
-
-.value {
-  margin-left: 3px;
-  text-align: center; }
-  @media screen and (max-width: 1000px) {
-    .value {
-      font-size: 0.8rem; } }
-
-@media screen and (max-width: 1000px) {
-  .key-uni {
-    font-size: 0.8rem; } }
 
 #data-container {
   width: 80%;

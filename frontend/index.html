@@ -19,6 +19,7 @@
   <link rel="icon" sizes="512x512" href="./files/black_favicon/android-chrome-512x512.png">
   <script src="./js/fetchApi.js"></script>
   <script src="./js/User/methods.js"></script>
+  <script src="./js/Index/methods.js"></script>
 </head>
 
 
@@ -26,7 +27,7 @@
 
   <nav class="navbar" class="row" id="navbar">
     <div id="logo-container">
-      <a href="">
+      <a onclick="transitionToPage(`index.html?theme=${night_mode}`)">
         <img src="./files/blue_favicon/android-chrome-512x512.png" alt="" loading="lazy">
       </a>
       <a id='sidebar-open-btn' onclick="change_sidebar_status()">&#9776;</a>
@@ -37,9 +38,9 @@
       <button id="home-button" type="button" class="btn btn-light navbar-link active">
         خانه
       </button>
-      <button onclick="transitionToPage(`data.html?theme=${night_mode}`)" id="data-button" type="button"
+      <button onclick="transitionToPage(`dashboard.html?theme=${night_mode}`)" id="data-button" type="button"
         class="btn btn-light navbar-link">
-        داده‌ها
+        داشبورد
       </button>
       <button onclick="transitionToPage(`signin.html?tab=signin&theme=${night_mode}`)" id="login-button" type="button"
         class="btn btn-light">
@@ -56,562 +57,72 @@
   </nav>
 
   <div id="main-aside-container">
-    <div id="sidebar">
-      <div class='sidebar-section'>
-        <div class="sidebar-title">
-          اعضای تیم
-        </div>
-        <ul>
-          <li class="sidebar-item">
-            آرمان محمدی
-          </li>
-          <li class="sidebar-item">
-            ساعی سعادت
-          </li>
-          <li class="sidebar-item">
-            سید علیرضا هاشمی
-          </li>
-        </ul>
-      </div>
-      <div class='sidebar-section'>
-        <div class="sidebar-title">
-          تنظیمات
-        </div>
-        <div class="sidebar-row" style="justify-content:space-between; ">
-          <div class="sidebar-item">
-            حالت شب
-          </div>
-          <label class="switch">
-            <input onclick="change_light_mode()" id="night-mode-switch" type="checkbox">
-            <span class="slider round"></span>
-          </label>
-        </div>
-      </div>
-    </div>
-
-
     <main id="main">
-      <div class="cards">
+      <div class="container-fluid">
+        <div class="row center" id="cardHolder">
 
-        <div class="card">
+          <div class="card col-xs-12 col-sm-5">
+            <div class="row">
+              <div class="col">
+                <h3>
+                  گلاب‌پاش مادربزرگ
+                </h3>
+                <hr />
 
-          <div class="datum team-rank">
-            <div class="rank">
-              رتبه
+              </div>
             </div>
-            <div class="rank-number">
-              ۲۳
+
+            <div class="row">
+              <div class="col">
+                <p>
+                  گلاب‌پاش مادربزرگ
+                </p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col col-xs-6 center" id="edit-button">
+                <button type="button" class="btn btn-block btn-success">ویرایش</button>
+              </div>
+              <div class="col col-xs-6 center" id="delete-button">
+                <button type="button" class="btn btn-block btn-danger">حذف</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6">
+            <div class="row">
+              <h3>
+                گلاب‌پاش مادربزرگ
+              </h3>
+            </div>
+
+            <div class="row">
+              <p>
+                گلاب‌پاش مادربزرگ
+              </p>
+            </div>
+            <div class="row">
+
+              <div class="col">
+                <button type="button" class="btn btn-success">ویرایش</button>
+              </div>
+              <div class="col col-xs-6">
+                <button type="button" class="btn btn-danger">حذف</button>
+              </div>
             </div>
           </div>
 
-
-          <div class="datum score-section">
-            <div class="key">امتیاز</div>
-            <div class="score">۱۴</div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key">
-              نام تیم
-            </div>
-            <div class="value">
-              وب چمپز
-            </div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key key-uni">
-              نام دانشگاه و کشور
-            </div>
-            <div class="value">
-              صنعتی شریف - ایران
-            </div>
-          </div>
 
         </div>
-
-
-
-        <div class="card">
-
-          <div class="datum team-rank">
-            <div class="rank">
-              رتبه
-            </div>
-            <div class="rank-number">
-              ۲۳
-            </div>
-          </div>
-
-
-          <div class="datum score-section">
-            <div class="key">امتیاز</div>
-            <div class="score">۱۴</div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key">
-              نام تیم
-            </div>
-            <div class="value">
-              وب چمپز
-            </div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key key-uni">
-              نام دانشگاه و کشور
-            </div>
-            <div class="value">
-              صنعتی شریف - ایران
-            </div>
-          </div>
-
-        </div>
-
-        <div class="card">
-
-          <div class="datum team-rank">
-            <div class="rank">
-              رتبه
-            </div>
-            <div class="rank-number">
-              ۲۳
-            </div>
-          </div>
-
-
-          <div class="datum score-section">
-            <div class="key">امتیاز</div>
-            <div class="score">۱۴</div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key">
-              نام تیم
-            </div>
-            <div class="value">
-              وب چمپز
-            </div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key key-uni">
-              نام دانشگاه و کشور
-            </div>
-            <div class="value">
-              صنعتی شریف - ایران
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="datum team-rank">
-            <div class="rank">
-              رتبه
-            </div>
-            <div class="rank-number">
-              ۲۳
-            </div>
-          </div>
-
-
-          <div class="datum score-section">
-            <div class="key">امتیاز</div>
-            <div class="score">۱۴</div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key">
-              نام تیم
-            </div>
-            <div class="value">
-              وب چمپز
-            </div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key key-uni">
-              نام دانشگاه و کشور
-            </div>
-            <div class="value">
-              صنعتی شریف - ایران
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="datum team-rank">
-            <div class="rank">
-              رتبه
-            </div>
-            <div class="rank-number">
-              ۲۳
-            </div>
-          </div>
-
-
-          <div class="datum score-section">
-            <div class="key">امتیاز</div>
-            <div class="score">۱۴</div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key">
-              نام تیم
-            </div>
-            <div class="value">
-              وب چمپز
-            </div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key key-uni">
-              نام دانشگاه و کشور
-            </div>
-            <div class="value">
-              صنعتی شریف - ایران
-            </div>
-          </div>
-
-        </div>
-
-        <div class="card">
-
-          <div class="datum team-rank">
-            <div class="rank">
-              رتبه
-            </div>
-            <div class="rank-number">
-              ۲۳
-            </div>
-          </div>
-
-
-          <div class="datum score-section">
-            <div class="key">امتیاز</div>
-            <div class="score">۱۴</div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key">
-              نام تیم
-            </div>
-            <div class="value">
-              وب چمپز
-            </div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key key-uni">
-              نام دانشگاه و کشور
-            </div>
-            <div class="value">
-              صنعتی شریف - ایران
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="datum team-rank">
-            <div class="rank">
-              رتبه
-            </div>
-            <div class="rank-number">
-              ۲۳
-            </div>
-          </div>
-
-
-          <div class="datum score-section">
-            <div class="key">امتیاز</div>
-            <div class="score">۱۴</div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key">
-              نام تیم
-            </div>
-            <div class="value">
-              وب چمپز
-            </div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key key-uni">
-              نام دانشگاه و کشور
-            </div>
-            <div class="value">
-              صنعتی شریف - ایران
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="datum team-rank">
-            <div class="rank">
-              رتبه
-            </div>
-            <div class="rank-number">
-              ۲۳
-            </div>
-          </div>
-
-
-          <div class="datum score-section">
-            <div class="key">امتیاز</div>
-            <div class="score">۱۴</div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key">
-              نام تیم
-            </div>
-            <div class="value">
-              وب چمپز
-            </div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key key-uni">
-              نام دانشگاه و کشور
-            </div>
-            <div class="value">
-              صنعتی شریف - ایران
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="datum team-rank">
-            <div class="rank">
-              رتبه
-            </div>
-            <div class="rank-number">
-              ۲۳
-            </div>
-          </div>
-
-
-          <div class="datum score-section">
-            <div class="key">امتیاز</div>
-            <div class="score">۱۴</div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key">
-              نام تیم
-            </div>
-            <div class="value">
-              وب چمپز
-            </div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key key-uni">
-              نام دانشگاه و کشور
-            </div>
-            <div class="value">
-              صنعتی شریف - ایران
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="datum team-rank">
-            <div class="rank">
-              رتبه
-            </div>
-            <div class="rank-number">
-              ۲۳
-            </div>
-          </div>
-
-
-          <div class="datum score-section">
-            <div class="key">امتیاز</div>
-            <div class="score">۱۴</div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key">
-              نام تیم
-            </div>
-            <div class="value">
-              وب چمپز
-            </div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key key-uni">
-              نام دانشگاه و کشور
-            </div>
-            <div class="value">
-              صنعتی شریف - ایران
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="datum team-rank">
-            <div class="rank">
-              رتبه
-            </div>
-            <div class="rank-number">
-              ۲۳
-            </div>
-          </div>
-
-
-          <div class="datum score-section">
-            <div class="key">امتیاز</div>
-            <div class="score">۱۴</div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key">
-              نام تیم
-            </div>
-            <div class="value">
-              وب چمپز
-            </div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key key-uni">
-              نام دانشگاه و کشور
-            </div>
-            <div class="value">
-              صنعتی شریف - ایران
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="datum team-rank">
-            <div class="rank">
-              رتبه
-            </div>
-            <div class="rank-number">
-              ۲۳
-            </div>
-          </div>
-
-
-          <div class="datum score-section">
-            <div class="key">امتیاز</div>
-            <div class="score">۱۴</div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key">
-              نام تیم
-            </div>
-            <div class="value">
-              وب چمپز
-            </div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key key-uni">
-              نام دانشگاه و کشور
-            </div>
-            <div class="value">
-              صنعتی شریف - ایران
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="datum team-rank">
-            <div class="rank">
-              رتبه
-            </div>
-            <div class="rank-number">
-              ۲۳
-            </div>
-          </div>
-
-
-          <div class="datum score-section">
-            <div class="key">امتیاز</div>
-            <div class="score">۱۴</div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key">
-              نام تیم
-            </div>
-            <div class="value">
-              وب چمپز
-            </div>
-          </div>
-
-
-          <div class="datum">
-            <div class="key key-uni">
-              نام دانشگاه و کشور
-            </div>
-            <div class="value">
-              صنعتی شریف - ایران
-            </div>
-          </div>
-
-        </div>
-
       </div>
+
+
+
+
+
+
+
 
     </main>
   </div>

@@ -23,6 +23,7 @@ admin.post('/post/crud', Middleware.checkForTitleAndContent,  async (req, res) =
   post.set("title", body.title);
   post.set("content", body.content);
   post.set("createdBy", user);
+
   post.save().then((post) => {
     res.status(200).json({"title": post.get("title"), 
     "content": post.get("content"),

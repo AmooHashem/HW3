@@ -108,6 +108,7 @@ const signout = () => {
                 'USER',
                 JSON.stringify({
                     token: '',
+                    id: '',
                 })
             )
             location.reload();

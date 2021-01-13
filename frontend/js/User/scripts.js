@@ -101,6 +101,7 @@ function validateSignupForm(event) {
                     'USER',
                     JSON.stringify({
                         token: response.user.sessionToken,
+                        username: response.user.username,
                     })
                 )
                 setTimeout(() => {
@@ -144,6 +145,7 @@ function validateSigninForm(event) {
                     'USER',
                     JSON.stringify({
                         token: response.user.sessionToken,
+                        username: response.user.username,
                     })
                 )
                 setTimeout(() => {

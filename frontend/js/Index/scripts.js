@@ -92,8 +92,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     _getAllPosts().then(
         (response) => {
             console.log(response)
-            // response.posts.forEach(myFunction);
-            showPost();
+            response.posts.forEach(makePost);
         },
         () => {
             console.log("ERROR")
@@ -118,46 +117,23 @@ const signout = () => {
 
 
 
-function showPost(item, index) {
-    const cardHolder = document.getElementById("cardHolder");
-    console.log(cardHolder)
-    cardHolder.innerHTML += '<div class="card">'+
-
-    '<div class="datum team-rank">'+
-      '<div class="rank">'+
-        رتبه
-      </div>
-      <div class="rank-number">
-        ۲۳
-      </div>
-    </div>
+function makePost(post, index) {
+    const card = document.createElement('div');
+    card.className = "card col-xs-12 col-sm-5";
+    const header = document.createElement('div');
+    header.className = "row";
+    header.innerHTML += '<div class="col"><h3>' + post.title + '</h3><hr /></div>';
+    card.append(header);
+    const content = document.createElement('div');
+    content.className = "row";
+    content.innerHTML += '<div class="col"><p>' + post.content + '</p></div>';
+    card.append(content);
 
 
-    <div class="datum score-section">
-      <div class="key">امتیاز</div>
-      <div class="score">۱۴</div>
-    </div>
+    document.getElementById("cardHolder").append(card);
 
+}
 
-    <div class="datum">
-      <div class="key">
-        نام تیم
-      </div>
-      <div class="value">
-        وب چمپز
-      </div>
-    </div>
+function makeDeleteAndEditButtons() {
 
-
-    <div class="datum">
-      <div class="key key-uni">
-        نام دانشگاه و کشور
-      </div>
-      <div class="value">
-        صنعتی شریف - ایران
-      </div>
-    </div>
-
-  </div>
-'
-} 
+}

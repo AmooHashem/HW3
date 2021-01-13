@@ -9,12 +9,15 @@ if (night_mode == "night") {
     night_mode = "day";
 }
 
-let temporary_storage = localStorage.getItem('USER')
-    ? JSON.parse(localStorage.getItem('USER'))
-    : {};
+// if token exist, redirect to index.html
+{
+    let temporary_storage = localStorage.getItem('USER')
+        ? JSON.parse(localStorage.getItem('USER'))
+        : {};
 
-if (temporary_storage.token) {
-    goHome();
+    if (temporary_storage.token) {
+        goHome();
+    }
 }
 
 function change_theme() {
@@ -35,6 +38,23 @@ function change_theme() {
         });
     }
 }
+
+// for page transitions:
+
+window.transitionToPage = function (href) {
+    document.querySelector('body').style.opacity = 0
+    setTimeout(function () {
+        window.location.href = href
+    }, 500)
+}
+
+document.addEventListener('DOMContentLoaded', function (event) {
+    setTimeout(function () {
+        document.querySelector('body').style.opacity = 1
+    }, 0)
+})
+
+////////////////////////////////////
 
 isFormValid = true;
 let validationErrorMessage = "";
@@ -73,14 +93,14 @@ function validateSignupForm(event) {
     isFormValid = validatePassword(password, confirm_password) && email.validity.valid;
     if (isFormValid) {
         div.style.display = "none";
-        signup(email.value, password.value).then(
+        _signup(email.value, password.value).then(
             (response) => {
                 div.style.display = "flex";
                 label.innerHTML = 'اکانت شما با موفقیت ساخته شد!';
                 localStorage.setItem(
                     'USER',
                     JSON.stringify({
-                        token: response.sessionToken,
+                        token: response.user.sessionToken,
                     })
                 )
                 setTimeout(() => {
@@ -116,14 +136,14 @@ function validateSigninForm(event) {
     isFormValid = validatePassword(password) && email.validity.valid;
     if (isFormValid) {
         div.style.display = "none";
-        signin(email.value, password.value).then(
+        _signin(email.value, password.value).then(
             (response) => {
                 div.style.display = "flex";
                 label.innerHTML = 'خوش آمدید!';
                 localStorage.setItem(
                     'USER',
                     JSON.stringify({
-                        token: response.sessionToken,
+                        token: response.user.sessionToken,
                     })
                 )
                 setTimeout(() => {
@@ -170,18 +190,3 @@ function validatePassword(password, confirm_password) {
         return true;
     }
 }
-
-// for page transitions:
-
-window.transitionToPage = function (href) {
-    document.querySelector('body').style.opacity = 0
-    setTimeout(function () {
-        window.location.href = href
-    }, 500)
-}
-
-document.addEventListener('DOMContentLoaded', function (event) {
-    setTimeout(function () {
-        document.querySelector('body').style.opacity = 1
-    }, 0)
-})

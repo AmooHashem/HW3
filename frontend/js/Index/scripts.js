@@ -1,30 +1,16 @@
 let night_mode = 'day';
-console.log("salam");
 let sidebar_status = 'close';
 
 const urlParams = new URLSearchParams(window.location.search);
 night_mode = urlParams.get('theme');
 if (night_mode == undefined || night_mode == "null") night_mode = "day";
 if (night_mode == "night") {
-    night_mode="day";
+    night_mode = "day";
     // change_light_mode();
     let swtch = document.getElementById("night-mode-switch");
     swtch.onclick();
     swtch.checked = true;
 }
-
-window.transitionToPage = function (href) {
-    document.querySelector('body').style.opacity = 0
-    setTimeout(function () {
-        window.location.href = href
-    }, 500)
-}
-
-document.addEventListener('DOMContentLoaded', function (event) {
-    setTimeout(function () {
-        document.querySelector('body').style.opacity = 1
-    }, 0)
-})
 
 function change_light_mode() {
     if (night_mode === 'day') {
@@ -33,7 +19,7 @@ function change_light_mode() {
         document.getElementById('main').classList.add("night-mode");
         document.getElementById("navbar").classList.add("night-mode");
         document.getElementById("buttons-container").classList.add("night-mode");
-        
+
         if (table = document.getElementById("data-container-table")) {
             table.classList.add("night-mode");
         }
@@ -74,3 +60,43 @@ function change_sidebar_status() {
     }
 }
 
+// for page transition:
+
+window.transitionToPage = function (href) {
+    document.querySelector('body').style.opacity = 0
+    setTimeout(function () {
+        window.location.href = href
+    }, 500)
+}
+
+document.addEventListener('DOMContentLoaded', function (event) {
+    setTimeout(function () {
+        document.querySelector('body').style.opacity = 1
+    }, 0)
+})
+
+///////////////////////////////
+
+
+{
+    let temporary_storage = localStorage.getItem('USER')
+        ? JSON.parse(localStorage.getItem('USER'))
+        : {};
+
+    if (temporary_storage.token) {
+        document.getElementById("")
+    }
+}
+
+const signout = () => {
+    _signout().then(
+        (response) => {
+            localStorage.setItem(
+                'USER',
+                JSON.stringify({
+                    token: '',
+                })
+            )
+        }
+    )
+}

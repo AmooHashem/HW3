@@ -59,14 +59,14 @@
                 color: rgba(77, 207, 253, 0.993);
                 border-color: rgba(107, 207, 253, 0.993);
             }
-    
+
             #register-button {
                 background-color: rgba(1, 160, 218, 0.993);
                 color: black;
             }
 
             @media screen and (max-width:600px) {
-                button{
+                button {
                     color: white !important;
                     background-color: transparent !important;
                     border-color: white !important;
@@ -80,8 +80,11 @@
         }
 
     }
-    transition: background-color 1s, color 1.2s;
-    & > * {
+
+    transition: background-color 1s,
+    color 1.2s;
+
+    &>* {
         transition: background-color 1s, color 1.2s;
     }
 }
@@ -104,6 +107,7 @@
         place-content: space-between;
         z-index: 5;
         height: 8vh;
+
         &.night-mode {
             color: white !important;
             background-color: rgba(26, 102, 146, 0.993) !important;
@@ -127,7 +131,7 @@
             border-radius: 0px;
         }
 
-        
+
     }
 
     &>button.active {
@@ -135,8 +139,6 @@
     }
 
     #home-button {
-        margin-right: 130px;
-
         @media screen and (max-width: 600px) {
             margin-right: inherit;
         }
@@ -176,7 +178,23 @@
         }
     }
 
+    #signout-button {
+        width: 12%;
+        margin-right: auto;
+        color: white;
+        border: 0;
+        background-color: rgba(12, 106, 150, 0.993);
+        border-radius: 0;
 
+        @media screen and (max-width: 600px) {
+            width: 25%;
+            border: 0;
+            background-color: inherit;
+            color: inherit;
+        }
+    }
+
+    #signout-button:hover,
     #login-button:hover,
     #register-button:hover {
         @media screen and (max-width: 600px) {
@@ -193,6 +211,7 @@
 .minimal-navbar {
     background-color: transparent;
     box-shadow: none;
+
     #logo-container {
         width: 40%;
         margin-right: 0;

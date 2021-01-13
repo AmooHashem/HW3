@@ -1,4 +1,4 @@
-const signin = async (email, password) => {
+const _signin = async (email, password) => {
   const fetchOptions = {
     method: 'POST',
     body: {
@@ -9,7 +9,7 @@ const signin = async (email, password) => {
   return await fetchApi(urls.SIGNIN, fetchOptions);
 }
 
-const signup = async (email, password) => {
+const _signup = async (email, password) => {
   const fetchOptions = {
     method: 'POST',
     body: {
@@ -20,7 +20,7 @@ const signup = async (email, password) => {
   return await fetchApi(urls.SIGNUP, fetchOptions);
 }
 
-const signout = async () => {
+const _signout = async () => {
   const fetchOptions = {
     method: 'GET',
   }

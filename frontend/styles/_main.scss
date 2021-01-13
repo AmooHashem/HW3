@@ -16,28 +16,31 @@ html {
     text-align: right;
     opacity: 0;
     transition: opacity .5s;
-        #main {
-            display: inline-block;
+
+    #main {
+        display: inline-block;
+        display: none;
+        height: 90vh;
+        margin-right: 0;
+        width: 100%;
+        justify-self: stretch;
+        align-self: stretch;
+        display: flex;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
             display: none;
-            height: 90vh;
-            margin-right: 0;
-            width: 100%;
-            justify-self: stretch;
-            align-self: stretch;
-            display: flex;
-            overflow-y: scroll;
-            &::-webkit-scrollbar {
-                display: none;
-                width: 0px;
-                background: transparent;
-            }
-            flex-wrap: wrap;
-        
-            &.night-mode {
-                background-color: rgb(97, 97, 97)!important;
-            }   
-        
+            width: 0px;
+            background: transparent;
         }
+
+        flex-wrap: wrap;
+
+        &.night-mode {
+            background-color: rgb(97, 97, 97) !important;
+        }
+
+    }
 }
 
 
@@ -60,7 +63,7 @@ html {
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        
+
         // flex: 1 0 21%;
 
         @media screen and (max-width: 1000px) {
@@ -75,12 +78,12 @@ html {
             width: 96%;
         }
 
-        & > * {
+        &>* {
             transition: background-color 1s, color 1.2s;
         }
 
         &.night-mode {
-            
+
             .datum {
                 background-color: #3B8EE7;
             }
@@ -106,7 +109,7 @@ html {
             // transition: background-color 1.2s;
             // transition: color 1.4s;
         }
-        
+
 
         .team-rank {
 
@@ -259,6 +262,7 @@ table {
             padding: 10px;
         }
     }
+
     th {
         font-size: 2.2rem;
         background-color: rgba(35, 109, 143, 0.993);
@@ -283,6 +287,7 @@ table {
             span {
                 display: block;
             }
+
             justify-content: space-between;
             display: flex;
             width: 100%;
@@ -293,7 +298,7 @@ table {
 
     tr:nth-of-type(even) {
         background-color: rgba(240, 253, 255, 0.966);
-       
+
         @media screen and (max-width: 600px) {
             background-color: rgba(97, 197, 243, 0.775)
         }
@@ -312,30 +317,30 @@ table {
         @media screen and (max-width: 600px) {
             border: none;
         }
- 
+
         th {
             background-color: rgb(105, 88, 255);
         }
 
         tr:nth-of-type(even) {
             background-color: rgb(113, 149, 255);
-           
+
             @media screen and (max-width: 600px) {
                 background-color: rgb(173, 193, 255);
             }
         }
-    
+
         tr:nth-of-type(odd) {
             background-color: rgb(173, 193, 255);
         }
-    
-    
+
+
     }
 
 }
 
 .bottom-table-button-container {
-    font-family: Sahel ;
+    font-family: Sahel;
     font-weight: 300;
     font-size: 1.5rem;
     display: flex;
@@ -349,8 +354,8 @@ table {
         margin-bottom: 40px;
     }
 
-    
-    
+
+
     &>button {
         border: 5px solid rgb(173, 193, 255);
         border-radius: 5px;
@@ -364,6 +369,6 @@ table {
 
     &.night-mode>button {
         border: 5px solid rgb(113, 149, 255);
-        color:  rgb(151, 177, 255);
+        color: rgb(151, 177, 255);
     }
 }

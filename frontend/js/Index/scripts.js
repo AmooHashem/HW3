@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         ? JSON.parse(localStorage.getItem('USER'))
         : {};
 
-    if (temporary_storage.token) {
+    if (temporary_storage.user && temporary_storage.user.sessionToken) {
         document.getElementById("login-button").style.display = 'none';
         document.getElementById("register-button").style.display = 'none';
     } else {
@@ -107,8 +107,7 @@ const signout = () => {
             localStorage.setItem(
                 'USER',
                 JSON.stringify({
-                    token: '',
-                    id: '',
+                    use
                 })
             )
             location.reload();
@@ -117,10 +116,9 @@ const signout = () => {
 }
 
 
-
 function makePost(post, index) {
     const card = document.createElement('div');
-    card.className = "card col-xs-12 col-sm-5";
+    card.className = "card col-12 col-sm-5";
     const header = document.createElement('div');
     header.className = "row";
     header.innerHTML += '<div class="col"><h3>' + post.title + '</h3><hr /></div>';
@@ -130,11 +128,5 @@ function makePost(post, index) {
     content.innerHTML += '<div class="col"><p>' + post.content + '</p></div>';
     card.append(content);
 
-
     document.getElementById("cardHolder").append(card);
-
-}
-
-function makeDeleteAndEditButtons() {
-
 }

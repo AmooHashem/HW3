@@ -7,8 +7,8 @@ const urls = {
   SIGNOUT: ROOT.concat('signout/'),
   GET_POSTS: ROOT.concat('post/'),
 
-  READ_USER: (id) => ADMIN.concat(`user/crud/${id}`),
-  POST_CRUD: (id) => ADMIN.concat(`post/crud/${id}`),
+  READ_USER: (id) => id ? ADMIN.concat(`user/crud/${id}`) : ADMIN.concat('user/crud'),
+  POST_CRUD: (id) => id ? ADMIN.concat(`post/crud/${id}`) : ADMIN.concat('post/crud'),
 }
 
 let storage = localStorage.getItem('USER')
@@ -21,7 +21,7 @@ const fetchApi = async (url, fetchOptions) => {
   fetchOptions.headers = {
     ...fetchOptions.headers,
     'Content-Type': 'application/json',
-    authorization: storage.token ? storage.token : '',
+    authorization: (storage.user && storage.user.sessionToken) ? storage.user.sessionToken : '',
   };
 
   const response = await fetch(url, fetchOptions);

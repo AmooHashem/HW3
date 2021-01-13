@@ -15,7 +15,7 @@ if (night_mode == "night") {
         ? JSON.parse(localStorage.getItem('USER'))
         : {};
 
-    if (temporary_storage.token) {
+    if (temporary_storage.user && temporary_storage.user.sessionToken) {
         goHome();
     }
 }
@@ -100,8 +100,7 @@ function validateSignupForm(event) {
                 localStorage.setItem(
                     'USER',
                     JSON.stringify({
-                        token: response.user.sessionToken,
-                        username: response.user.username,
+                        user: response.user,
                     })
                 )
                 setTimeout(() => {
@@ -144,8 +143,7 @@ function validateSigninForm(event) {
                 localStorage.setItem(
                     'USER',
                     JSON.stringify({
-                        token: response.user.sessionToken,
-                        username: response.user.username,
+                        user: response.user,
                     })
                 )
                 setTimeout(() => {

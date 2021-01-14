@@ -107,7 +107,7 @@ const signout = () => {
             localStorage.setItem(
                 'USER',
                 JSON.stringify({
-                    use
+                    user: {}
                 })
             )
             location.reload();

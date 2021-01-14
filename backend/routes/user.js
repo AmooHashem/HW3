@@ -32,6 +32,7 @@ user.post('/signup', async (req, res) => {
   try {
     await user.signUp();
     res.status(200).json({ user });
+    return;
   } catch (error) {
     if (error.message == "Account already exists for this email address.") {
       res.status(409).json({ message: "این اکانت قبلا ساخته شده است!" });
@@ -83,6 +84,7 @@ user.get('/signout', Middleware.authenticateToken, function (req, res) {
   Parse.User.become(user.authenticateToken).then(async (user) => {
     Parse.User.logOut().then(() => {
       res.status(200).json({ message: "You Signed out successfully" });
+      return;
     }, function (error) {
       res.status(error.code).json({ message: error.message });
       return;

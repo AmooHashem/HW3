@@ -5,6 +5,7 @@ const Middleware = require("../middleware/tokenAuthMiddleware");
 
 user.get('/signup', (_, res) => {
   res.status(405).json({ message: "only `POST` method is valid" });
+  return;
 })
 
 user.post('/signup', async (req, res) => {
@@ -34,9 +35,11 @@ user.post('/signup', async (req, res) => {
   } catch (error) {
     if (error.message == "Account already exists for this email address.") {
       res.status(409).json({ message: "این اکانت قبلا ساخته شده است!" });
+      return;
     }
     console.log(error.message + " : " + error.code);
     res.status(500).json({ message: "خطای داخلی سرور:" + error.message });
+    return;
   }
 });
 
@@ -45,6 +48,7 @@ user.post('/signup', async (req, res) => {
 
 user.get('/signin', (_, res) => {
   res.status(405).json({ message: "only `POST` method is valid" });
+  return;
 })
 
 user.post('/signin', async function (req, res) {
@@ -81,15 +85,18 @@ user.get('/signout', Middleware.authenticateToken, function (req, res) {
       res.status(200).json({ message: "You Signed out successfully" });
     }, function (error) {
       res.status(error.code).json({ message: error.message });
+      return;
     });
   }, function (error) {
     res.status(error.code).json({ message: error.message });
+    return;
   });
 });
 
 
 user.get('/', function (req, res) {
   res.status(200).json({ message: 'List of user root.' });
+  return;
 });
 
 function validateEmail(email) {

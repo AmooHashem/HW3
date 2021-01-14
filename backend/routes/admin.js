@@ -3,7 +3,6 @@ const express = require('express');
 const admin = express.Router();
 const Post = Parse.Object.extend("Post");
 const Middleware = require("../middleware/tokenAuthMiddleware") ;
-const user = require('./user');
 
 admin.use(Middleware.authenticateToken);
 
@@ -31,7 +30,7 @@ admin.post('/post/crud', Middleware.checkForTitleAndContent,  async (req, res) =
     });
     return;
   }, function (error) {
-    res.status(error.code).send(error.message);
+    res.status(error.code).json({ 'message': error.message});
     return;
   });
 
@@ -55,7 +54,7 @@ admin.get(["/post/crud", "/post/crud/:id"], (req, res) => {
       })});
       return;
     }, (_) => {
-      res.status(400).send("پست مورد نظر یافت نشد.");
+      res.status(400).json({ 'message': "پست مورد نظر یافت نشد."});
       return;
     });
   } else {
@@ -66,7 +65,7 @@ admin.get(["/post/crud", "/post/crud/:id"], (req, res) => {
       res.status(200).json({"post": post});
       return;
     }, (_) => {
-      res.status(400).send("پست مورد نظر یافت نشد.");
+      res.status(400).json({ 'message': "پست مورد نظر یافت نشد."});
       return;
     });
   }
@@ -78,7 +77,7 @@ admin.put('/post/crud/:id', Middleware.checkForTitleAndContent, async (req, res)
   
   const id = req.params.id;
   if (!id) {
-    res.status(400).send("خطا در url ارسالی");
+    res.status(400).json({ 'message': "خطا در url ارسالی"});
     return;
   }
   const body = req.body;
@@ -89,7 +88,7 @@ admin.put('/post/crud/:id', Middleware.checkForTitleAndContent, async (req, res)
   query.get(id).then((post) => {
 
     if(!post.getACL().getWriteAccess(user)) {
-      res.status(401).send("شما اجازه‌ی تغییر این پست را ندارید.");
+      res.status(401).json({ 'message': "شما اجازه‌ی تغییر این پست را ندارید."});
       return;
     }    
 
@@ -105,12 +104,12 @@ admin.put('/post/crud/:id', Middleware.checkForTitleAndContent, async (req, res)
       });
   
     }, function (_) {
-      res.status(401).send("شما اجازه‌ی تغییر این پست را ندارید.");
+      res.status(401).json({ 'message': "شما اجازه‌ی تغییر این پست را ندارید."});
       return;
     });
 
   }, (_) => {
-    res.status(400).send("پست درخواستی شما یافت نشد.");
+    res.status(400).json({ 'message': "پست درخواستی شما یافت نشد."});
     return;
   });
 
@@ -121,7 +120,7 @@ admin.delete('/post/crud/:id', async (req, res) => {
   
   const id = req.params.id;
   if (!id) {
-    res.status(400).send("خطا در url ارسالی");
+    res.status(400).json({ 'message': "خطا در url ارسالی"});
     return;
   }
   const user = res.locals.user;
@@ -131,7 +130,7 @@ admin.delete('/post/crud/:id', async (req, res) => {
   query.get(id).then((post) => {
 
     if(!post.getACL().getWriteAccess(user)) {
-      res.status(401).send("شما اجازه‌ی حذف این پست را ندارید.");
+      res.status(401).json({ 'message': "شما اجازه‌ی حذف این پست را ندارید."});
       return;
     }    
 
@@ -140,7 +139,7 @@ admin.delete('/post/crud/:id', async (req, res) => {
       return;
     }, (error) => {
       console.log(error.message);
-      res.status(500).send(" خطای داخلی سرور " + error.message);
+      res.status(500).json({ 'message': " خطای داخلی سرور " + error.message});
       return;
     })
 
@@ -154,15 +153,41 @@ admin.delete('/post/crud/:id', async (req, res) => {
       return;
   
     }, function (_) {
-      res.status(401).send("شما اجازه‌ی تغییر این پست را ندارید.");
+      res.status(401).json({ 'message': "شما اجازه‌ی تغییر این پست را ندارید."});
       return;
     });
 
   }, (_) => {
-    res.status(400).send("پست درخواستی شما یافت نشد.");
+    res.status(400).json({ 'message': "پست درخواستی شما یافت نشد."});
     return;
   });
 
+})
+
+admin.get(['/user/crud/:id', '/user/crud/'], (req, res) => {
+  console.log("Handling user/crud!");
+  
+  const id = req.params.id;
+  if (!id) {
+    res.status(400).json({ 'message': 'خطا در url ارسالی' });
+    return;
+  }
+  const user = res.locals.user;
+  Parse.User.enableUnsafeCurrentUser();
+  
+  const query = new Parse.Query(Post);
+  query.get(id).then((post) => {
+    const userId = post.get("createdBy").id;
+    post.set("createdBy", userId);
+    post.set("ACL", null);
+    res.status(200).json({post});
+    return;
+  }, (_) => {
+    res.status(400).json({ 'message': "پست مورد نظر یافت نشد." });
+    return;
+  });
+  
+  return;
 })
 
 
